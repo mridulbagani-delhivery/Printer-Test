@@ -1,0 +1,81 @@
+package com.example.printertest;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+public class MainActivity extends Activity {
+
+	Button bprint;
+	static final String SOCKET_HOST= "10.2.2.31";
+	static final String TAG ="Printer";  
+	ServerSocket serverSocket;
+	ServerSocketThread serverSocketThread;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Tracer.debug(TAG, "[onCreate] _ " + "");
+		setContentView(R.layout.activity_main);
+
+		bprint = (Button)findViewById(R.id.btnprint);
+		bprint.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Tracer.debug(TAG, "[onClick] _ " + "button print");
+				print_fun();
+			}
+		});
+
+	}
+
+	public void print_fun()
+	{
+		Tracer.debug(TAG, "[print_fun] _ " + "");
+		serverSocketThread = new ServerSocketThread();
+		serverSocketThread.start();
+
+
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		if (serverSocket != null) {
+			try {
+				Tracer.debug(TAG, "[onDestroy] _ " + "try");
+				serverSocket.close();
+			} catch (IOException e) {
+				Tracer.debug(TAG, "[onDestroy] _ " + "catch");
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+	/**
+	 * 
+	 * server socket thread
+	 *
+	 */
+	public class ServerSocketThread extends Thread
+	{
+
+	}
+
+
+}
+
+
+
+
+
+
+

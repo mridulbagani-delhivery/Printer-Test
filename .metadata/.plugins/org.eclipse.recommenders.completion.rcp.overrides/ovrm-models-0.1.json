@@ -1,0 +1,12 @@
+{
+  "D:\\AND_SDK\\platforms\\android-22\\android.jar": {
+    "location": "D:\\AND_SDK\\platforms\\android-22\\android.jar",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027D:\\AND_SDK\\platforms\\android-22\\android.jar\u0027. Neither fingerprint \u002779cb26a0e1c81773e9354a01d671ef3c465856d8\u0027 nor symbolic name \u0027android\u0027 are known."
+  },
+  "D:\\Delhivery\\printertest\\PrinterTest\\libs\\socketio.jar": {
+    "location": "D:\\Delhivery\\printertest\\PrinterTest\\libs\\socketio.jar",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027D:\\Delhivery\\printertest\\PrinterTest\\libs\\socketio.jar\u0027. Neither fingerprint \u0027eca5028ad55e28377b67718e1608c96e0eb509b5\u0027 nor symbolic name \u0027socketio\u0027 are known."
+  }
+}

@@ -1,0 +1,191 @@
+package com.example.printertest;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.os.Environment;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+
+	Button bprint;
+	static final String SOCKET_HOST= "10.2.2.31";
+	static final String TAG ="Printer";  
+	ServerSocket serverSocket;
+	ServerSocketThread serverSocketThread;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Tracer.debug(TAG, "[onCreate] _ " + "");
+		setContentView(R.layout.activity_main);
+
+		bprint = (Button)findViewById(R.id.btnprint);
+		bprint.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Tracer.debug(TAG, "[onClick] _ " + "button print");
+				print_fun();
+			}
+		});
+
+	}
+
+	public void print_fun()
+	{
+		Tracer.debug(TAG, "[print_fun] _ " + "");
+		serverSocketThread = new ServerSocketThread();
+		serverSocketThread.start();
+
+
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		if (serverSocket != null) {
+			try {
+				Tracer.debug(TAG, "[onDestroy] _ " + "try");
+				serverSocket.close();
+			} catch (IOException e) {
+				Tracer.debug(TAG, "[onDestroy] _ " + "catch");
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+	/**
+	 * 
+	 * server socket thread
+	 *
+	 */
+	public class ServerSocketThread extends Thread
+	{
+
+		@Override
+		public void run() {
+			Tracer.debug(TAG, "[run] _ " + "");
+			Socket socket = null;
+			try {
+				Tracer.debug(TAG, "[run] _ " + "try");
+				serverSocket = new ServerSocket(SOCKET_HOST,80);
+				while (true) {
+					socket = serverSocket.accept();
+					FileTxThread fileTxThread = new FileTxThread(socket);
+					fileTxThread.start();
+				}
+
+			} catch (Exception e) {
+				Tracer.debug(TAG, "[run] _ " + "catch");
+				e.printStackTrace();
+			}
+			finally {
+				Tracer.debug(TAG, "[run] _ " + "finally");
+				if (socket != null) {
+					try {
+						socket.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+
+	public class FileTxThread extends Thread {
+		Socket socket;
+		File external_file;
+		FileWriter writer;
+		Button bprint;
+		String fileO;
+		String printer_content;
+
+		FileTxThread(Socket socket){
+			this.socket= socket;
+		}
+
+		@Override
+		public void run() {
+
+			File sdCard = Environment.getExternalStorageDirectory();
+
+			// directory -- dir_geolocation
+			File directory = new File(sdCard.getAbsolutePath() + "/dir_print");
+			directory.mkdirs();
+
+			// filename -- coordinates.txt
+			fileO = "delhi.prn";
+
+			try {
+				Tracer.debug(TAG, "[run] _ " + "try");
+				external_file = new File(directory, fileO);
+
+			} catch (Exception e) {
+				Tracer.debug(TAG, "[run] _ " + "catch");
+				e.printStackTrace();
+			}
+
+
+			byte[] bytes = new byte[(int) external_file.length()];
+			BufferedInputStream bis;
+			try {
+				bis = new BufferedInputStream(new FileInputStream(external_file));
+				bis.read(bytes, 0, bytes.length);
+				OutputStream os = socket.getOutputStream();
+				os.write(bytes, 0, bytes.length);
+				os.flush();
+				socket.close();
+
+				MainActivity.this.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						Toast.makeText(MainActivity.this, 
+								"File Sent", 
+								Toast.LENGTH_LONG).show();
+					}});
+
+			} catch (FileNotFoundException e) {
+				Toast.makeText(MainActivity.this,"File Not Found", Toast.LENGTH_SHORT).show();
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				try {
+					socket.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		}
+	}
+
+
+
+}
+
+
+
+
+
+
+

@@ -1,0 +1,67 @@
+[
+  {
+    "symbolicName": "android-support-v4",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "b6c138ba72ce38beda559df33d369856854fd6f5",
+    "jarFileModificationDate": "2016-01-27T15:15:49.372+05:30",
+    "location": "D:\\Delhivery\\printertest\\PrinterTest\\libs\\android-support-v4.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "79cb26a0e1c81773e9354a01d671ef3c465856d8",
+    "jarFileModificationDate": "2015-06-19T19:07:02+05:30",
+    "location": "D:\\AND_SDK\\platforms\\android-22\\android.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v4",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "b6c138ba72ce38beda559df33d369856854fd6f5",
+    "jarFileModificationDate": "2016-01-05T13:18:31.947+05:30",
+    "location": "D:\\Delhivery\\printertest\\appcompat_v7\\libs\\android-support-v4.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "appcompat_v7",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "653f50651f417b82feb1bc99f90cffe29c4e0711",
+    "jarFileModificationDate": "2016-05-05T17:53:07.202+05:30",
+    "location": "D:\\Delhivery\\printertest\\appcompat_v7\\bin\\appcompat_v7.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v7-appcompat",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "3bc8be748a6ddb74052346ccbf39872859567c2e",
+    "jarFileModificationDate": "2016-01-05T13:18:31.927+05:30",
+    "location": "D:\\Delhivery\\printertest\\appcompat_v7\\libs\\android-support-v7-appcompat.jar",
+    "javaRuntime": false
+  }
+]
